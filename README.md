@@ -1,6 +1,5 @@
 # Docker image for `ansible`
 
-[![Build Status](https://travis-ci.com/cytopia/docker-ansible.svg?branch=master)](https://travis-ci.com/cytopia/docker-ansible)
 [![Tag](https://img.shields.io/github/tag/cytopia/docker-ansible.svg)](https://github.com/cytopia/docker-ansible/releases)
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest "ansible")
 [![](https://images.microbadger.com/badges/image/cytopia/ansible:latest.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest "ansible")
@@ -8,10 +7,14 @@
 [![](https://img.shields.io/badge/github-cytopia%2Fdocker--ansible-red.svg)](https://github.com/cytopia/docker-ansible "github.com/cytopia/docker-ansible")
 [![License](https://img.shields.io/badge/license-MIT-%233DA639.svg)](https://opensource.org/licenses/MIT)
 
-[![Build Status](https://github.com/cytopia/docker-ansible/workflows/linting/badge.svg)](https://github.com/cytopia/docker-ansible/actions?workflow=linting)
-[![Build Status](https://github.com/cytopia/docker-ansible/workflows/Ansible%20Standard/badge.svg)](https://github.com/cytopia/docker-ansible/actions?workflow=Ansible%20Standard)
-[![Build Status](https://github.com/cytopia/docker-ansible/workflows/Ansible%20Kops/badge.svg)](https://github.com/cytopia/docker-ansible/actions?workflow=Ansible%20Kops)
-[![Build Status](https://github.com/cytopia/docker-ansible/workflows/Ansible%20Helm/badge.svg)](https://github.com/cytopia/docker-ansible/actions?workflow=Ansible%20Helm)
+[![Build Status](https://github.com/cytopia/docker-ansible/workflows/lint/badge.svg)](https://github.com/cytopia/docker-ansible/actions?workflow=lint)
+[![Build Status](https://github.com/cytopia/docker-ansible/workflows/build/badge.svg)](https://github.com/cytopia/docker-ansible/actions?workflow=build)
+[![Build Status](https://github.com/cytopia/docker-ansible/workflows/build-kops/badge.svg)](https://github.com/cytopia/docker-ansible/actions?workflow=build-kops)
+[![Build Status](https://github.com/cytopia/docker-ansible/workflows/build-helm/badge.svg)](https://github.com/cytopia/docker-ansible/actions?workflow=build-helm)
+
+[![Build Status](https://github.com/cytopia/docker-ansible/workflows/nightly/badge.svg)](https://github.com/cytopia/docker-ansible/actions?workflow=nightly)
+[![Build Status](https://github.com/cytopia/docker-ansible/workflows/nightly-kops/badge.svg)](https://github.com/cytopia/docker-ansible/actions?workflow=nightly-kops)
+[![Build Status](https://github.com/cytopia/docker-ansible/workflows/nightly-helm/badge.svg)](https://github.com/cytopia/docker-ansible/actions?workflow=nightly-helm)
 
 
 > #### All [#awesome-ci](https://github.com/topics/awesome-ci) Docker images
@@ -65,16 +68,16 @@ The image is built nightly against multiple stable versions and pushed to Docker
 This repository provides many different Ansible flavours (each flavour also divided into different Ansible versions).
 The following table shows a quick overview. For more details see further down below.
 
-| Flavour | Inherits from | Additional Python libs | Additional binaries |
+| Flavour | Based on | Additional Python libs | Additional binaries |
 |---------|---------------|------------------------|---------------------|
-| base    | -             | `cffi`, `cryptography`, `Jinja2`, `PyYAML` | - |
-| tools   | base          | `dnspython`, `mitogen` | `bash`, `git`, `gpg`, `jq`, `ssh`, `yq` |
-| infra   | tools         | `docker`, `docker-compose`, `paramiko`, `pexpect`, `psycopg2`, `pypsexec`, `pymongo`, `PyMySQL`, `smbprotocol` | `rsync` |
-| azure   | tools         | `azure-*`              | - |
-| aws     | tools         | `awscli`, `botocore`, `boto`, `boto3` | `aws`, `aws-iam-authenticator` |
-| awsk8s  | aws           | `openshift`            | `kubectl` |
-| awskops | awsk8s        | -                      | `kops` |
-| awshelm | awsk8s        | -                      | `helm` |
+| base    | -        | `cffi`, `cryptography`, `Jinja2`, `paramiko`, `PyYAML` | - |
+| tools   | base     | `dnspython`, `mitogen` | `bash`, `git`, `gpg`, `jq`, `ssh`, `yq` |
+| infra   | tools    | `docker`, `docker-compose`, `jsondiff`, `pexpect`, `psycopg2`, `pypsexec`, `pymongo`, `PyMySQL`, `smbprotocol` | `rsync` |
+| azure   | tools    | `azure-*`              | - |
+| aws     | tools    | `awscli`, `botocore`, `boto`, `boto3` | `aws`, `aws-iam-authenticator` |
+| awsk8s  | aws      | `openshift`            | `kubectl`, `oc` |
+| awskops | awsk8s   | -                      | `kops` |
+| awshelm | awsk8s   | -                      | `helm` |
 
 
 ### Ansible base
@@ -83,16 +86,17 @@ The following table shows a quick overview. For more details see further down be
 
 The following Ansible Docker images are as small as possible and only contain Ansible itself.
 
-| Docker tag | Build from                          |
-|------------|-------------------------------------|
-| `latest`   | Latest stable Ansible version       |
-| `2.9`      | Latest stable Ansible 2.9.x version |
-| `2.8`      | Latest stable Ansible 2.8.x version |
-| `2.7`      | Latest stable Ansible 2.7.x version |
-| `2.6`      | Latest stable Ansible 2.6.x version |
-| `2.5`      | Latest stable Ansible 2.5.x version |
-| `2.4`      | Latest stable Ansible 2.4.x version |
-| `2.3`      | Latest stable Ansible 2.3.x version |
+| Docker tag | Build from                           |
+|------------|--------------------------------------|
+| `latest`   | Latest stable Ansible version        |
+| `2.10`     | Latest stable Ansible 2.10.x version |
+| `2.9`      | Latest stable Ansible 2.9.x version  |
+| `2.8`      | Latest stable Ansible 2.8.x version  |
+| `2.7`      | Latest stable Ansible 2.7.x version  |
+| `2.6`      | Latest stable Ansible 2.6.x version  |
+| `2.5`      | Latest stable Ansible 2.5.x version  |
+| `2.4`      | Latest stable Ansible 2.4.x version  |
+| `2.3`      | Latest stable Ansible 2.3.x version  |
 
 ### Ansible tools
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-tools.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-tools "ansible")
@@ -100,16 +104,17 @@ The following Ansible Docker images are as small as possible and only contain An
 
 The following Ansible Docker images contain everything from `Ansible base` and additionally: `bash`, `git`, `gpg`, `jq`, `ssh` and `dnspython` and Ansible **`mitogen`** strategy plugin (see [Examples](#run-ansible-playbook-with-mitogen)).
 
-| Docker tag     | Build from                          |
-|----------------|-------------------------------------|
-| `latest-tools` | Latest stable Ansible version       |
-| `2.9-tools`    | Latest stable Ansible 2.9.x version |
-| `2.8-tools`    | Latest stable Ansible 2.8.x version |
-| `2.7-tools`    | Latest stable Ansible 2.7.x version |
-| `2.6-tools`    | Latest stable Ansible 2.6.x version |
-| `2.5-tools`    | Latest stable Ansible 2.5.x version |
-| `2.4-tools`    | Latest stable Ansible 2.4.x version |
-| `2.3-tools`    | Latest stable Ansible 2.3.x version |
+| Docker tag     | Build from                           |
+|----------------|--------------------------------------|
+| `latest-tools` | Latest stable Ansible version        |
+| `2.10-tools`   | Latest stable Ansible 2.10.x version |
+| `2.9-tools`    | Latest stable Ansible 2.9.x version  |
+| `2.8-tools`    | Latest stable Ansible 2.8.x version  |
+| `2.7-tools`    | Latest stable Ansible 2.7.x version  |
+| `2.6-tools`    | Latest stable Ansible 2.6.x version  |
+| `2.5-tools`    | Latest stable Ansible 2.5.x version  |
+| `2.4-tools`    | Latest stable Ansible 2.4.x version  |
+| `2.3-tools`    | Latest stable Ansible 2.3.x version  |
 
 ### Ansible infra
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-infra.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-infra "ansible")
@@ -117,16 +122,17 @@ The following Ansible Docker images contain everything from `Ansible base` and a
 
 The following Ansible Docker images contain everything from `Ansible tools` and additionally: `docker`, `pexpect`, `psycopg2`, `pypsexec`, `pymongo`, `PyMySQL` and `smbprotocol` Python libraries.
 
-| Docker tag     | Build from                          |
-|----------------|-------------------------------------|
-| `latest-infra` | Latest stable Ansible version       |
-| `2.9-infra`    | Latest stable Ansible 2.9.x version |
-| `2.8-infra`    | Latest stable Ansible 2.8.x version |
-| `2.7-infra`    | Latest stable Ansible 2.7.x version |
-| `2.6-infra`    | Latest stable Ansible 2.6.x version |
-| `2.5-infra`    | Latest stable Ansible 2.5.x version |
-| `2.4-infra`    | Latest stable Ansible 2.4.x version |
-| `2.3-infra`    | Latest stable Ansible 2.3.x version |
+| Docker tag     | Build from                           |
+|----------------|--------------------------------------|
+| `latest-infra` | Latest stable Ansible version        |
+| `2.10-infra`   | Latest stable Ansible 2.10.x version |
+| `2.9-infra`    | Latest stable Ansible 2.9.x version  |
+| `2.8-infra`    | Latest stable Ansible 2.8.x version  |
+| `2.7-infra`    | Latest stable Ansible 2.7.x version  |
+| `2.6-infra`    | Latest stable Ansible 2.6.x version  |
+| `2.5-infra`    | Latest stable Ansible 2.5.x version  |
+| `2.4-infra`    | Latest stable Ansible 2.4.x version  |
+| `2.3-infra`    | Latest stable Ansible 2.3.x version  |
 
 ### Ansible azure
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-azure.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-azure "ansible")
@@ -134,16 +140,17 @@ The following Ansible Docker images contain everything from `Ansible tools` and 
 
 The following Ansible Docker images contain everything from `Ansible tools` and additionally: `azure`.
 
-| Docker tag     | Build from                          |
-|----------------|-------------------------------------|
-| `latest-azure` | Latest stable Ansible version       |
-| `2.9-azure`    | Latest stable Ansible 2.9.x version |
-| `2.8-azure`    | Latest stable Ansible 2.8.x version |
-| `2.7-azure`    | Latest stable Ansible 2.7.x version |
-| `2.6-azure`    | Latest stable Ansible 2.6.x version |
-| `2.5-azure`    | Latest stable Ansible 2.5.x version |
-| `2.4-azure`    | Latest stable Ansible 2.4.x version |
-| `2.3-azure`    | Latest stable Ansible 2.3.x version |
+| Docker tag     | Build from                           |
+|----------------|--------------------------------------|
+| `latest-azure` | Latest stable Ansible version        |
+| `2.10-azure`   | Latest stable Ansible 2.10.x version |
+| `2.9-azure`    | Latest stable Ansible 2.9.x version  |
+| `2.8-azure`    | Latest stable Ansible 2.8.x version  |
+| `2.7-azure`    | Latest stable Ansible 2.7.x version  |
+| `2.6-azure`    | Latest stable Ansible 2.6.x version  |
+| `2.5-azure`    | Latest stable Ansible 2.5.x version  |
+| `2.4-azure`    | Latest stable Ansible 2.4.x version  |
+| `2.3-azure`    | Latest stable Ansible 2.3.x version  |
 
 ### Ansible aws
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-aws.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-aws "ansible")
@@ -151,16 +158,17 @@ The following Ansible Docker images contain everything from `Ansible tools` and 
 
 The following Ansible Docker images contain everything from `Ansible tools` and additionally: `aws-cli`, `boto`, `boto3` and `botocore`.
 
-| Docker tag   | Build from                          |
-|--------------|-------------------------------------|
-| `latest-aws` | Latest stable Ansible version       |
-| `2.9-aws`    | Latest stable Ansible 2.9.x version |
-| `2.8-aws`    | Latest stable Ansible 2.8.x version |
-| `2.7-aws`    | Latest stable Ansible 2.7.x version |
-| `2.6-aws`    | Latest stable Ansible 2.6.x version |
-| `2.5-aws`    | Latest stable Ansible 2.5.x version |
-| `2.4-aws`    | Latest stable Ansible 2.4.x version |
-| `2.3-aws`    | Latest stable Ansible 2.3.x version |
+| Docker tag   | Build from                           |
+|--------------|--------------------------------------|
+| `latest-aws` | Latest stable Ansible version        |
+| `2.10-aws`   | Latest stable Ansible 2.10.x version |
+| `2.9-aws`    | Latest stable Ansible 2.9.x version  |
+| `2.8-aws`    | Latest stable Ansible 2.8.x version  |
+| `2.7-aws`    | Latest stable Ansible 2.7.x version  |
+| `2.6-aws`    | Latest stable Ansible 2.6.x version  |
+| `2.5-aws`    | Latest stable Ansible 2.5.x version  |
+| `2.4-aws`    | Latest stable Ansible 2.4.x version  |
+| `2.3-aws`    | Latest stable Ansible 2.3.x version  |
 
 ### Ansible awsk8s
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awsk8s.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awsk8s "ansible")
@@ -168,311 +176,379 @@ The following Ansible Docker images contain everything from `Ansible tools` and 
 
 The following Ansible Docker images contain everything from `Ansible aws` and additionally: `openshift` and `kubectl`.
 
-| Docker tag      | Build from                          |
-|-----------------|-------------------------------------|
-| `latest-awsk8s` | Latest stable Ansible version       |
-| `2.9-awsk8s`    | Latest stable Ansible 2.9.x version |
-| `2.8-awsk8s`    | Latest stable Ansible 2.8.x version |
-| `2.7-awsk8s`    | Latest stable Ansible 2.7.x version |
-| `2.6-awsk8s`    | Latest stable Ansible 2.6.x version |
-| `2.5-awsk8s`    | Latest stable Ansible 2.5.x version |
-| `2.4-awsk8s`    | Latest stable Ansible 2.4.x version |
-| `2.3-awsk8s`    | Latest stable Ansible 2.3.x version |
+| Docker tag      | Build from                           |
+|-----------------|--------------------------------------|
+| `latest-awsk8s` | Latest stable Ansible version        |
+| `2.10-awsk8s`   | Latest stable Ansible 2.10.x version |
+| `2.9-awsk8s`    | Latest stable Ansible 2.9.x version  |
+| `2.8-awsk8s`    | Latest stable Ansible 2.8.x version  |
+| `2.7-awsk8s`    | Latest stable Ansible 2.7.x version  |
+| `2.6-awsk8s`    | Latest stable Ansible 2.6.x version  |
+| `2.5-awsk8s`    | Latest stable Ansible 2.5.x version  |
+| `2.4-awsk8s`    | Latest stable Ansible 2.4.x version  |
+| `2.3-awsk8s`    | Latest stable Ansible 2.3.x version  |
 
 ### Ansible awskops
 The following Ansible Docker images contain everything from `Ansible awsk8s` and additionally: `kops` in its latest patch level version.
 
 > https://github.com/kubernetes/kops/releases
 
+#### Kops 1.18 (latest 1.18.x)
+[![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awskops1.18.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.18 "ansible")
+[![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awskops1.18.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.18 "ansible")
+
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awskops1.18` | Latest stable Ansible version        |
+| `2.10-awskops1.18`   | Latest stable Ansible 2.10.x version |
+| `2.9-awskops1.18`    | Latest stable Ansible 2.9.x version  |
+| `2.8-awskops1.18`    | Latest stable Ansible 2.8.x version  |
+| `2.7-awskops1.18`    | Latest stable Ansible 2.7.x version  |
+| `2.6-awskops1.18`    | Latest stable Ansible 2.6.x version  |
+| `2.5-awskops1.18`    | Latest stable Ansible 2.5.x version  |
+| `2.4-awskops1.18`    | Latest stable Ansible 2.4.x version  |
+| `2.3-awskops1.18`    | Latest stable Ansible 2.3.x version  |
+
 #### Kops 1.17 (latest 1.17.x)
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awskops1.17.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.17 "ansible")
 [![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awskops1.17.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.17 "ansible")
 
-| Docker tag           | Build from                          |
-|----------------------|-------------------------------------|
-| `latest-awskops1.17` | Latest stable Ansible version       |
-| `2.9-awskops1.17`    | Latest stable Ansible 2.9.x version |
-| `2.8-awskops1.17`    | Latest stable Ansible 2.8.x version |
-| `2.7-awskops1.17`    | Latest stable Ansible 2.7.x version |
-| `2.6-awskops1.17`    | Latest stable Ansible 2.6.x version |
-| `2.5-awskops1.17`    | Latest stable Ansible 2.5.x version |
-| `2.4-awskops1.17`    | Latest stable Ansible 2.4.x version |
-| `2.3-awskops1.17`    | Latest stable Ansible 2.3.x version |
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awskops1.17` | Latest stable Ansible version        |
+| `2.10-awskops1.17`   | Latest stable Ansible 2.10.x version |
+| `2.9-awskops1.17`    | Latest stable Ansible 2.9.x version  |
+| `2.8-awskops1.17`    | Latest stable Ansible 2.8.x version  |
+| `2.7-awskops1.17`    | Latest stable Ansible 2.7.x version  |
+| `2.6-awskops1.17`    | Latest stable Ansible 2.6.x version  |
+| `2.5-awskops1.17`    | Latest stable Ansible 2.5.x version  |
+| `2.4-awskops1.17`    | Latest stable Ansible 2.4.x version  |
+| `2.3-awskops1.17`    | Latest stable Ansible 2.3.x version  |
 
 #### Kops 1.16 (latest 1.16.x)
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awskops1.16.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.16 "ansible")
 [![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awskops1.16.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.16 "ansible")
 
-| Docker tag           | Build from                          |
-|----------------------|-------------------------------------|
-| `latest-awskops1.16` | Latest stable Ansible version       |
-| `2.9-awskops1.16`    | Latest stable Ansible 2.9.x version |
-| `2.8-awskops1.16`    | Latest stable Ansible 2.8.x version |
-| `2.7-awskops1.16`    | Latest stable Ansible 2.7.x version |
-| `2.6-awskops1.16`    | Latest stable Ansible 2.6.x version |
-| `2.5-awskops1.16`    | Latest stable Ansible 2.5.x version |
-| `2.4-awskops1.16`    | Latest stable Ansible 2.4.x version |
-| `2.3-awskops1.16`    | Latest stable Ansible 2.3.x version |
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awskops1.16` | Latest stable Ansible version        |
+| `2.10-awskops1.16`   | Latest stable Ansible 2.10.x version |
+| `2.9-awskops1.16`    | Latest stable Ansible 2.9.x version  |
+| `2.8-awskops1.16`    | Latest stable Ansible 2.8.x version  |
+| `2.7-awskops1.16`    | Latest stable Ansible 2.7.x version  |
+| `2.6-awskops1.16`    | Latest stable Ansible 2.6.x version  |
+| `2.5-awskops1.16`    | Latest stable Ansible 2.5.x version  |
+| `2.4-awskops1.16`    | Latest stable Ansible 2.4.x version  |
+| `2.3-awskops1.16`    | Latest stable Ansible 2.3.x version  |
 
 #### Kops 1.15 (latest 1.15.x)
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awskops1.15.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.15 "ansible")
 [![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awskops1.15.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.15 "ansible")
 
-| Docker tag           | Build from                          |
-|----------------------|-------------------------------------|
-| `latest-awskops1.15` | Latest stable Ansible version       |
-| `2.9-awskops1.15`    | Latest stable Ansible 2.9.x version |
-| `2.8-awskops1.15`    | Latest stable Ansible 2.8.x version |
-| `2.7-awskops1.15`    | Latest stable Ansible 2.7.x version |
-| `2.6-awskops1.15`    | Latest stable Ansible 2.6.x version |
-| `2.5-awskops1.15`    | Latest stable Ansible 2.5.x version |
-| `2.4-awskops1.15`    | Latest stable Ansible 2.4.x version |
-| `2.3-awskops1.15`    | Latest stable Ansible 2.3.x version |
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awskops1.15` | Latest stable Ansible version        |
+| `2.10-awskops1.15`   | Latest stable Ansible 2.10.x version |
+| `2.9-awskops1.15`    | Latest stable Ansible 2.9.x version  |
+| `2.8-awskops1.15`    | Latest stable Ansible 2.8.x version  |
+| `2.7-awskops1.15`    | Latest stable Ansible 2.7.x version  |
+| `2.6-awskops1.15`    | Latest stable Ansible 2.6.x version  |
+| `2.5-awskops1.15`    | Latest stable Ansible 2.5.x version  |
+| `2.4-awskops1.15`    | Latest stable Ansible 2.4.x version  |
+| `2.3-awskops1.15`    | Latest stable Ansible 2.3.x version  |
 
 #### Kops 1.14 (latest 1.14.x)
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awskops1.14.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.14 "ansible")
 [![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awskops1.14.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.14 "ansible")
 
-| Docker tag           | Build from                          |
-|----------------------|-------------------------------------|
-| `latest-awskops1.14` | Latest stable Ansible version       |
-| `2.9-awskops1.14`    | Latest stable Ansible 2.9.x version |
-| `2.8-awskops1.14`    | Latest stable Ansible 2.8.x version |
-| `2.7-awskops1.14`    | Latest stable Ansible 2.7.x version |
-| `2.6-awskops1.14`    | Latest stable Ansible 2.6.x version |
-| `2.5-awskops1.14`    | Latest stable Ansible 2.5.x version |
-| `2.4-awskops1.14`    | Latest stable Ansible 2.4.x version |
-| `2.3-awskops1.14`    | Latest stable Ansible 2.3.x version |
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awskops1.14` | Latest stable Ansible version        |
+| `2.10-awskops1.14`   | Latest stable Ansible 2.10.x version |
+| `2.9-awskops1.14`    | Latest stable Ansible 2.9.x version  |
+| `2.8-awskops1.14`    | Latest stable Ansible 2.8.x version  |
+| `2.7-awskops1.14`    | Latest stable Ansible 2.7.x version  |
+| `2.6-awskops1.14`    | Latest stable Ansible 2.6.x version  |
+| `2.5-awskops1.14`    | Latest stable Ansible 2.5.x version  |
+| `2.4-awskops1.14`    | Latest stable Ansible 2.4.x version  |
+| `2.3-awskops1.14`    | Latest stable Ansible 2.3.x version  |
 
 #### Kops 1.13 (latest 1.13.x)
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awskops1.13.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.13 "ansible")
 [![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awskops1.13.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.13 "ansible")
 
-| Docker tag           | Build from                          |
-|----------------------|-------------------------------------|
-| `latest-awskops1.13` | Latest stable Ansible version       |
-| `2.9-awskops1.13`    | Latest stable Ansible 2.9.x version |
-| `2.8-awskops1.13`    | Latest stable Ansible 2.8.x version |
-| `2.7-awskops1.13`    | Latest stable Ansible 2.7.x version |
-| `2.6-awskops1.13`    | Latest stable Ansible 2.6.x version |
-| `2.5-awskops1.13`    | Latest stable Ansible 2.5.x version |
-| `2.4-awskops1.13`    | Latest stable Ansible 2.4.x version |
-| `2.3-awskops1.13`    | Latest stable Ansible 2.3.x version |
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awskops1.13` | Latest stable Ansible version        |
+| `2.10-awskops1.13`   | Latest stable Ansible 2.10.x version |
+| `2.9-awskops1.13`    | Latest stable Ansible 2.9.x version  |
+| `2.8-awskops1.13`    | Latest stable Ansible 2.8.x version  |
+| `2.7-awskops1.13`    | Latest stable Ansible 2.7.x version  |
+| `2.6-awskops1.13`    | Latest stable Ansible 2.6.x version  |
+| `2.5-awskops1.13`    | Latest stable Ansible 2.5.x version  |
+| `2.4-awskops1.13`    | Latest stable Ansible 2.4.x version  |
+| `2.3-awskops1.13`    | Latest stable Ansible 2.3.x version  |
 
 #### Kops 1.12 (latest 1.12.x)
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awskops1.12.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.12 "ansible")
 [![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awskops1.12.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.12 "ansible")
 
-| Docker tag           | Build from                          |
-|----------------------|-------------------------------------|
-| `latest-awskops1.12` | Latest stable Ansible version       |
-| `2.9-awskops1.12`    | Latest stable Ansible 2.9.x version |
-| `2.8-awskops1.12`    | Latest stable Ansible 2.8.x version |
-| `2.7-awskops1.12`    | Latest stable Ansible 2.7.x version |
-| `2.6-awskops1.12`    | Latest stable Ansible 2.6.x version |
-| `2.5-awskops1.12`    | Latest stable Ansible 2.5.x version |
-| `2.4-awskops1.12`    | Latest stable Ansible 2.4.x version |
-| `2.3-awskops1.12`    | Latest stable Ansible 2.3.x version |
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awskops1.12` | Latest stable Ansible version        |
+| `2.10-awskops1.12`   | Latest stable Ansible 2.10.x version |
+| `2.9-awskops1.12`    | Latest stable Ansible 2.9.x version  |
+| `2.8-awskops1.12`    | Latest stable Ansible 2.8.x version  |
+| `2.7-awskops1.12`    | Latest stable Ansible 2.7.x version  |
+| `2.6-awskops1.12`    | Latest stable Ansible 2.6.x version  |
+| `2.5-awskops1.12`    | Latest stable Ansible 2.5.x version  |
+| `2.4-awskops1.12`    | Latest stable Ansible 2.4.x version  |
+| `2.3-awskops1.12`    | Latest stable Ansible 2.3.x version  |
 
 #### Kops 1.11 (latest 1.11.x)
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awskops1.11.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.11 "ansible")
 [![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awskops1.11.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.11 "ansible")
 
-| Docker tag           | Build from                          |
-|----------------------|-------------------------------------|
-| `latest-awskops1.11` | Latest stable Ansible version       |
-| `2.9-awskops1.11`    | Latest stable Ansible 2.9.x version |
-| `2.8-awskops1.11`    | Latest stable Ansible 2.8.x version |
-| `2.7-awskops1.11`    | Latest stable Ansible 2.7.x version |
-| `2.6-awskops1.11`    | Latest stable Ansible 2.6.x version |
-| `2.5-awskops1.11`    | Latest stable Ansible 2.5.x version |
-| `2.4-awskops1.11`    | Latest stable Ansible 2.4.x version |
-| `2.3-awskops1.11`    | Latest stable Ansible 2.3.x version |
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awskops1.11` | Latest stable Ansible version        |
+| `2.10-awskops1.11`   | Latest stable Ansible 2.10.x version |
+| `2.9-awskops1.11`    | Latest stable Ansible 2.9.x version  |
+| `2.8-awskops1.11`    | Latest stable Ansible 2.8.x version  |
+| `2.7-awskops1.11`    | Latest stable Ansible 2.7.x version  |
+| `2.6-awskops1.11`    | Latest stable Ansible 2.6.x version  |
+| `2.5-awskops1.11`    | Latest stable Ansible 2.5.x version  |
+| `2.4-awskops1.11`    | Latest stable Ansible 2.4.x version  |
+| `2.3-awskops1.11`    | Latest stable Ansible 2.3.x version  |
 
 #### Kops 1.10 (latest 1.10.x)
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awskops1.10.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.10 "ansible")
 [![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awskops1.10.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.10 "ansible")
 
-| Docker tag           | Build from                          |
-|----------------------|-------------------------------------|
-| `latest-awskops1.10` | Latest stable Ansible version       |
-| `2.9-awskops1.10`    | Latest stable Ansible 2.9.x version |
-| `2.8-awskops1.10`    | Latest stable Ansible 2.8.x version |
-| `2.7-awskops1.10`    | Latest stable Ansible 2.7.x version |
-| `2.6-awskops1.10`    | Latest stable Ansible 2.6.x version |
-| `2.5-awskops1.10`    | Latest stable Ansible 2.5.x version |
-| `2.4-awskops1.10`    | Latest stable Ansible 2.4.x version |
-| `2.3-awskops1.10`    | Latest stable Ansible 2.3.x version |
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awskops1.10` | Latest stable Ansible version        |
+| `2.10-awskops1.10`   | Latest stable Ansible 2.10.x version |
+| `2.9-awskops1.10`    | Latest stable Ansible 2.9.x version  |
+| `2.8-awskops1.10`    | Latest stable Ansible 2.8.x version  |
+| `2.7-awskops1.10`    | Latest stable Ansible 2.7.x version  |
+| `2.6-awskops1.10`    | Latest stable Ansible 2.6.x version  |
+| `2.5-awskops1.10`    | Latest stable Ansible 2.5.x version  |
+| `2.4-awskops1.10`    | Latest stable Ansible 2.4.x version  |
+| `2.3-awskops1.10`    | Latest stable Ansible 2.3.x version  |
 
 #### Kops 1.9 (latest 1.9.x)
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awskops1.9.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.9 "ansible")
 [![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awskops1.9.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.9 "ansible")
 
-| Docker tag           | Build from                          |
-|----------------------|-------------------------------------|
-| `latest-awskops1.9` | Latest stable Ansible version       |
-| `2.9-awskops1.9`    | Latest stable Ansible 2.9.x version |
-| `2.8-awskops1.9`    | Latest stable Ansible 2.8.x version |
-| `2.7-awskops1.9`    | Latest stable Ansible 2.7.x version |
-| `2.6-awskops1.9`    | Latest stable Ansible 2.6.x version |
-| `2.5-awskops1.9`    | Latest stable Ansible 2.5.x version |
-| `2.4-awskops1.9`    | Latest stable Ansible 2.4.x version |
-| `2.3-awskops1.9`    | Latest stable Ansible 2.3.x version |
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awskops1.9`  | Latest stable Ansible version        |
+| `2.10-awskops1.9`    | Latest stable Ansible 2.10.x version |
+| `2.9-awskops1.9`     | Latest stable Ansible 2.9.x version  |
+| `2.8-awskops1.9`     | Latest stable Ansible 2.8.x version  |
+| `2.7-awskops1.9`     | Latest stable Ansible 2.7.x version  |
+| `2.6-awskops1.9`     | Latest stable Ansible 2.6.x version  |
+| `2.5-awskops1.9`     | Latest stable Ansible 2.5.x version  |
+| `2.4-awskops1.9`     | Latest stable Ansible 2.4.x version  |
+| `2.3-awskops1.9`     | Latest stable Ansible 2.3.x version  |
 
 #### Kops 1.8 (latest 1.8.x)
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awskops1.8.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.8 "ansible")
 [![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awskops1.8.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awskops1.8 "ansible")
 
-| Docker tag           | Build from                          |
-|----------------------|-------------------------------------|
-| `latest-awskops1.8` | Latest stable Ansible version       |
-| `2.9-awskops1.8`    | Latest stable Ansible 2.9.x version |
-| `2.8-awskops1.8`    | Latest stable Ansible 2.8.x version |
-| `2.7-awskops1.8`    | Latest stable Ansible 2.7.x version |
-| `2.6-awskops1.8`    | Latest stable Ansible 2.6.x version |
-| `2.5-awskops1.8`    | Latest stable Ansible 2.5.x version |
-| `2.4-awskops1.8`    | Latest stable Ansible 2.4.x version |
-| `2.3-awskops1.8`    | Latest stable Ansible 2.3.x version |
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awskops1.8`  | Latest stable Ansible version        |
+| `2.10-awskops1.8`    | Latest stable Ansible 2.10.x version |
+| `2.9-awskops1.8`     | Latest stable Ansible 2.9.x version  |
+| `2.8-awskops1.8`     | Latest stable Ansible 2.8.x version  |
+| `2.7-awskops1.8`     | Latest stable Ansible 2.7.x version  |
+| `2.6-awskops1.8`     | Latest stable Ansible 2.6.x version  |
+| `2.5-awskops1.8`     | Latest stable Ansible 2.5.x version  |
+| `2.4-awskops1.8`     | Latest stable Ansible 2.4.x version  |
+| `2.3-awskops1.8`     | Latest stable Ansible 2.3.x version  |
 
 ### Ansible awshelm
 The following Ansible Docker images contain everything from `Ansible awsk8s` and additionally: `helm` in its latest patch level version.
 
 > https://github.com/helm/helm/releases
 
+#### Helm 3.4 (latest 3.4.x)
+[![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awshelm3.4.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm3.4 "ansible")
+[![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awshelm3.4.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm3.4 "ansible")
+
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awshelm3.4`  | Latest stable Ansible version        |
+| `2.10-awshelm3.4`    | Latest stable Ansible 2.10.x version |
+| `2.9-awshelm3.4`     | Latest stable Ansible 2.9.x version  |
+| `2.8-awshelm3.4`     | Latest stable Ansible 2.8.x version  |
+| `2.7-awshelm3.4`     | Latest stable Ansible 2.7.x version  |
+| `2.6-awshelm3.4`     | Latest stable Ansible 2.6.x version  |
+| `2.5-awshelm3.4`     | Latest stable Ansible 2.5.x version  |
+| `2.4-awshelm3.4`     | Latest stable Ansible 2.4.x version  |
+| `2.3-awshelm3.4`     | Latest stable Ansible 2.3.x version  |
+
+#### Helm 3.3 (latest 3.3.x)
+[![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awshelm3.3.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm3.3 "ansible")
+[![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awshelm3.3.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm3.3 "ansible")
+
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awshelm3.3`  | Latest stable Ansible version        |
+| `2.10-awshelm3.3`    | Latest stable Ansible 2.10.x version |
+| `2.9-awshelm3.3`     | Latest stable Ansible 2.9.x version  |
+| `2.8-awshelm3.3`     | Latest stable Ansible 2.8.x version  |
+| `2.7-awshelm3.3`     | Latest stable Ansible 2.7.x version  |
+| `2.6-awshelm3.3`     | Latest stable Ansible 2.6.x version  |
+| `2.5-awshelm3.3`     | Latest stable Ansible 2.5.x version  |
+| `2.4-awshelm3.3`     | Latest stable Ansible 2.4.x version  |
+| `2.3-awshelm3.3`     | Latest stable Ansible 2.3.x version  |
+
 #### Helm 3.2 (latest 3.2.x)
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awshelm3.2.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm3.2 "ansible")
 [![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awshelm3.2.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm3.2 "ansible")
 
-| Docker tag           | Build from                          |
-|----------------------|-------------------------------------|
-| `latest-awshelm3.2` | Latest stable Ansible version       |
-| `2.9-awshelm3.2`    | Latest stable Ansible 2.9.x version |
-| `2.8-awshelm3.2`    | Latest stable Ansible 2.8.x version |
-| `2.7-awshelm3.2`    | Latest stable Ansible 2.7.x version |
-| `2.6-awshelm3.2`    | Latest stable Ansible 2.6.x version |
-| `2.5-awshelm3.2`    | Latest stable Ansible 2.5.x version |
-| `2.4-awshelm3.2`    | Latest stable Ansible 2.4.x version |
-| `2.3-awshelm3.2`    | Latest stable Ansible 2.3.x version |
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awshelm3.2`  | Latest stable Ansible version        |
+| `2.10-awshelm3.2`    | Latest stable Ansible 2.10.x version |
+| `2.9-awshelm3.2`     | Latest stable Ansible 2.9.x version  |
+| `2.8-awshelm3.2`     | Latest stable Ansible 2.8.x version  |
+| `2.7-awshelm3.2`     | Latest stable Ansible 2.7.x version  |
+| `2.6-awshelm3.2`     | Latest stable Ansible 2.6.x version  |
+| `2.5-awshelm3.2`     | Latest stable Ansible 2.5.x version  |
+| `2.4-awshelm3.2`     | Latest stable Ansible 2.4.x version  |
+| `2.3-awshelm3.2`     | Latest stable Ansible 2.3.x version  |
 
 #### Helm 3.1 (latest 3.1.x)
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awshelm3.1.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm3.1 "ansible")
 [![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awshelm3.1.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm3.1 "ansible")
 
-| Docker tag           | Build from                          |
-|----------------------|-------------------------------------|
-| `latest-awshelm3.1` | Latest stable Ansible version       |
-| `2.9-awshelm3.1`    | Latest stable Ansible 2.9.x version |
-| `2.8-awshelm3.1`    | Latest stable Ansible 2.8.x version |
-| `2.7-awshelm3.1`    | Latest stable Ansible 2.7.x version |
-| `2.6-awshelm3.1`    | Latest stable Ansible 2.6.x version |
-| `2.5-awshelm3.1`    | Latest stable Ansible 2.5.x version |
-| `2.4-awshelm3.1`    | Latest stable Ansible 2.4.x version |
-| `2.3-awshelm3.1`    | Latest stable Ansible 2.3.x version |
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awshelm3.1`  | Latest stable Ansible version        |
+| `2.10-awshelm3.1`    | Latest stable Ansible 2.10.x version |
+| `2.9-awshelm3.1`     | Latest stable Ansible 2.9.x version  |
+| `2.8-awshelm3.1`     | Latest stable Ansible 2.8.x version  |
+| `2.7-awshelm3.1`     | Latest stable Ansible 2.7.x version  |
+| `2.6-awshelm3.1`     | Latest stable Ansible 2.6.x version  |
+| `2.5-awshelm3.1`     | Latest stable Ansible 2.5.x version  |
+| `2.4-awshelm3.1`     | Latest stable Ansible 2.4.x version  |
+| `2.3-awshelm3.1`     | Latest stable Ansible 2.3.x version  |
 
 #### Helm 3.0 (latest 3.0.x)
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awshelm3.0.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm3.0 "ansible")
 [![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awshelm3.0.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm3.0 "ansible")
 
-| Docker tag           | Build from                          |
-|----------------------|-------------------------------------|
-| `latest-awshelm3.0` | Latest stable Ansible version       |
-| `2.9-awshelm3.0`    | Latest stable Ansible 2.9.x version |
-| `2.8-awshelm3.0`    | Latest stable Ansible 2.8.x version |
-| `2.7-awshelm3.0`    | Latest stable Ansible 2.7.x version |
-| `2.6-awshelm3.0`    | Latest stable Ansible 2.6.x version |
-| `2.5-awshelm3.0`    | Latest stable Ansible 2.5.x version |
-| `2.4-awshelm3.0`    | Latest stable Ansible 2.4.x version |
-| `2.3-awshelm3.0`    | Latest stable Ansible 2.3.x version |
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awshelm3.0`  | Latest stable Ansible version        |
+| `2.10-awshelm3.0`    | Latest stable Ansible 2.10.x version |
+| `2.9-awshelm3.0`     | Latest stable Ansible 2.9.x version  |
+| `2.8-awshelm3.0`     | Latest stable Ansible 2.8.x version  |
+| `2.7-awshelm3.0`     | Latest stable Ansible 2.7.x version  |
+| `2.6-awshelm3.0`     | Latest stable Ansible 2.6.x version  |
+| `2.5-awshelm3.0`     | Latest stable Ansible 2.5.x version  |
+| `2.4-awshelm3.0`     | Latest stable Ansible 2.4.x version  |
+| `2.3-awshelm3.0`     | Latest stable Ansible 2.3.x version  |
 
 #### Helm 2.16 (latest 2.16.x)
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awshelm2.16.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm2.16 "ansible")
 [![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awshelm2.16.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm2.16 "ansible")
 
-| Docker tag           | Build from                          |
-|----------------------|-------------------------------------|
-| `latest-awshelm2.16` | Latest stable Ansible version       |
-| `2.9-awshelm2.16`    | Latest stable Ansible 2.9.x version |
-| `2.8-awshelm2.16`    | Latest stable Ansible 2.8.x version |
-| `2.7-awshelm2.16`    | Latest stable Ansible 2.7.x version |
-| `2.6-awshelm2.16`    | Latest stable Ansible 2.6.x version |
-| `2.5-awshelm2.16`    | Latest stable Ansible 2.5.x version |
-| `2.4-awshelm2.16`    | Latest stable Ansible 2.4.x version |
-| `2.3-awshelm2.16`    | Latest stable Ansible 2.3.x version |
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awshelm2.16` | Latest stable Ansible version        |
+| `2.10-awshelm2.16`   | Latest stable Ansible 2.10.x version |
+| `2.9-awshelm2.16`    | Latest stable Ansible 2.9.x version  |
+| `2.8-awshelm2.16`    | Latest stable Ansible 2.8.x version  |
+| `2.7-awshelm2.16`    | Latest stable Ansible 2.7.x version  |
+| `2.6-awshelm2.16`    | Latest stable Ansible 2.6.x version  |
+| `2.5-awshelm2.16`    | Latest stable Ansible 2.5.x version  |
+| `2.4-awshelm2.16`    | Latest stable Ansible 2.4.x version  |
+| `2.3-awshelm2.16`    | Latest stable Ansible 2.3.x version  |
 
 #### Helm 2.15 (latest 2.15.x)
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awshelm2.15.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm2.15 "ansible")
 [![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awshelm2.15.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm2.15 "ansible")
 
-| Docker tag           | Build from                          |
-|----------------------|-------------------------------------|
-| `latest-awshelm2.15` | Latest stable Ansible version       |
-| `2.9-awshelm2.15`    | Latest stable Ansible 2.9.x version |
-| `2.8-awshelm2.15`    | Latest stable Ansible 2.8.x version |
-| `2.7-awshelm2.15`    | Latest stable Ansible 2.7.x version |
-| `2.6-awshelm2.15`    | Latest stable Ansible 2.6.x version |
-| `2.5-awshelm2.15`    | Latest stable Ansible 2.5.x version |
-| `2.4-awshelm2.15`    | Latest stable Ansible 2.4.x version |
-| `2.3-awshelm2.15`    | Latest stable Ansible 2.3.x version |
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awshelm2.15` | Latest stable Ansible version        |
+| `2.10-awshelm2.15`   | Latest stable Ansible 2.10.x version |
+| `2.9-awshelm2.15`    | Latest stable Ansible 2.9.x version  |
+| `2.8-awshelm2.15`    | Latest stable Ansible 2.8.x version  |
+| `2.7-awshelm2.15`    | Latest stable Ansible 2.7.x version  |
+| `2.6-awshelm2.15`    | Latest stable Ansible 2.6.x version  |
+| `2.5-awshelm2.15`    | Latest stable Ansible 2.5.x version  |
+| `2.4-awshelm2.15`    | Latest stable Ansible 2.4.x version  |
+| `2.3-awshelm2.15`    | Latest stable Ansible 2.3.x version  |
 
 #### Helm 2.14 (latest 2.14.x)
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awshelm2.14.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm2.14 "ansible")
 [![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awshelm2.14.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm2.14 "ansible")
 
-| Docker tag           | Build from                          |
-|----------------------|-------------------------------------|
-| `latest-awshelm2.14` | Latest stable Ansible version       |
-| `2.9-awshelm2.14`    | Latest stable Ansible 2.9.x version |
-| `2.8-awshelm2.14`    | Latest stable Ansible 2.8.x version |
-| `2.7-awshelm2.14`    | Latest stable Ansible 2.7.x version |
-| `2.6-awshelm2.14`    | Latest stable Ansible 2.6.x version |
-| `2.5-awshelm2.14`    | Latest stable Ansible 2.5.x version |
-| `2.4-awshelm2.14`    | Latest stable Ansible 2.4.x version |
-| `2.3-awshelm2.14`    | Latest stable Ansible 2.3.x version |
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awshelm2.14` | Latest stable Ansible version        |
+| `2.10-awshelm2.14`   | Latest stable Ansible 2.10.x version |
+| `2.9-awshelm2.14`    | Latest stable Ansible 2.9.x version  |
+| `2.8-awshelm2.14`    | Latest stable Ansible 2.8.x version  |
+| `2.7-awshelm2.14`    | Latest stable Ansible 2.7.x version  |
+| `2.6-awshelm2.14`    | Latest stable Ansible 2.6.x version  |
+| `2.5-awshelm2.14`    | Latest stable Ansible 2.5.x version  |
+| `2.4-awshelm2.14`    | Latest stable Ansible 2.4.x version  |
+| `2.3-awshelm2.14`    | Latest stable Ansible 2.3.x version  |
 
 #### Helm 2.13 (latest 2.13.x)
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awshelm2.13.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm2.13 "ansible")
 [![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awshelm2.13.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm2.13 "ansible")
 
-| Docker tag           | Build from                          |
-|----------------------|-------------------------------------|
-| `latest-awshelm2.13` | Latest stable Ansible version       |
-| `2.9-awshelm2.13`    | Latest stable Ansible 2.9.x version |
-| `2.8-awshelm2.13`    | Latest stable Ansible 2.8.x version |
-| `2.7-awshelm2.13`    | Latest stable Ansible 2.7.x version |
-| `2.6-awshelm2.13`    | Latest stable Ansible 2.6.x version |
-| `2.5-awshelm2.13`    | Latest stable Ansible 2.5.x version |
-| `2.4-awshelm2.13`    | Latest stable Ansible 2.4.x version |
-| `2.3-awshelm2.13`    | Latest stable Ansible 2.3.x version |
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awshelm2.13` | Latest stable Ansible version        |
+| `2.10-awshelm2.13`   | Latest stable Ansible 2.10.x version |
+| `2.9-awshelm2.13`    | Latest stable Ansible 2.9.x version  |
+| `2.8-awshelm2.13`    | Latest stable Ansible 2.8.x version  |
+| `2.7-awshelm2.13`    | Latest stable Ansible 2.7.x version  |
+| `2.6-awshelm2.13`    | Latest stable Ansible 2.6.x version  |
+| `2.5-awshelm2.13`    | Latest stable Ansible 2.5.x version  |
+| `2.4-awshelm2.13`    | Latest stable Ansible 2.4.x version  |
+| `2.3-awshelm2.13`    | Latest stable Ansible 2.3.x version  |
 
 #### Helm 2.12 (latest 2.12.x)
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awshelm2.12.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm2.12 "ansible")
 [![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awshelm2.12.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm2.12 "ansible")
 
-| Docker tag           | Build from                          |
-|----------------------|-------------------------------------|
-| `latest-awshelm2.12` | Latest stable Ansible version       |
-| `2.9-awshelm2.12`    | Latest stable Ansible 2.9.x version |
-| `2.8-awshelm2.12`    | Latest stable Ansible 2.8.x version |
-| `2.7-awshelm2.12`    | Latest stable Ansible 2.7.x version |
-| `2.6-awshelm2.12`    | Latest stable Ansible 2.6.x version |
-| `2.5-awshelm2.12`    | Latest stable Ansible 2.5.x version |
-| `2.4-awshelm2.12`    | Latest stable Ansible 2.4.x version |
-| `2.3-awshelm2.12`    | Latest stable Ansible 2.3.x version |
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awshelm2.12` | Latest stable Ansible version        |
+| `2.10-awshelm2.12`   | Latest stable Ansible 2.10.x version |
+| `2.9-awshelm2.12`    | Latest stable Ansible 2.9.x version  |
+| `2.8-awshelm2.12`    | Latest stable Ansible 2.8.x version  |
+| `2.7-awshelm2.12`    | Latest stable Ansible 2.7.x version  |
+| `2.6-awshelm2.12`    | Latest stable Ansible 2.6.x version  |
+| `2.5-awshelm2.12`    | Latest stable Ansible 2.5.x version  |
+| `2.4-awshelm2.12`    | Latest stable Ansible 2.4.x version  |
+| `2.3-awshelm2.12`    | Latest stable Ansible 2.3.x version  |
 
 #### Helm 2.11 (latest 2.11.x)
 [![](https://images.microbadger.com/badges/version/cytopia/ansible:latest-awshelm2.11.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm2.11 "ansible")
 [![](https://images.microbadger.com/badges/image/cytopia/ansible:latest-awshelm2.11.svg?&kill_cache=1)](https://microbadger.com/images/cytopia/ansible:latest-awshelm2.11 "ansible")
 
-| Docker tag           | Build from                          |
-|----------------------|-------------------------------------|
-| `latest-awshelm2.11` | Latest stable Ansible version       |
-| `2.9-awshelm2.11`    | Latest stable Ansible 2.9.x version |
-| `2.8-awshelm2.11`    | Latest stable Ansible 2.8.x version |
-| `2.7-awshelm2.11`    | Latest stable Ansible 2.7.x version |
-| `2.6-awshelm2.11`    | Latest stable Ansible 2.6.x version |
-| `2.5-awshelm2.11`    | Latest stable Ansible 2.5.x version |
-| `2.4-awshelm2.11`    | Latest stable Ansible 2.4.x version |
-| `2.3-awshelm2.11`    | Latest stable Ansible 2.3.x version |
+| Docker tag           | Build from                           |
+|----------------------|--------------------------------------|
+| `latest-awshelm2.11` | Latest stable Ansible version        |
+| `2.10-awshelm2.11`   | Latest stable Ansible 2.10.x version |
+| `2.9-awshelm2.11`    | Latest stable Ansible 2.9.x version  |
+| `2.8-awshelm2.11`    | Latest stable Ansible 2.8.x version  |
+| `2.7-awshelm2.11`    | Latest stable Ansible 2.7.x version  |
+| `2.6-awshelm2.11`    | Latest stable Ansible 2.6.x version  |
+| `2.5-awshelm2.11`    | Latest stable Ansible 2.5.x version  |
+| `2.4-awshelm2.11`    | Latest stable Ansible 2.4.x version  |
+| `2.3-awshelm2.11`    | Latest stable Ansible 2.3.x version  |
 
 
 ## Docker environment variables
@@ -810,94 +886,93 @@ make run UID=1001 GID=1001
 
 ## Build locally
 
-To build locally you require GNU Make to be installed. The default build procedure is to always
-build as the `latest` tag, so you  will have to manually retag the image after build.
-Instructions as  shown below.
+To build locally you require GNU Make to be installed. Instructions as  shown below.
 
 ### Ansible base
 ```bash
 # Build latest Ansible base
+# image: cytopia/ansible:latest
 make build
 
 # Build Ansible 2.6 base
+# image: cytopia/ansible:2.6
 make build ANSIBLE=2.6
-make tag   TAG=2.6
 ```
 ### Ansible tools
 ```bash
 # Build latest Ansible tools
-make build ANSIBLE=latest-tools
-make tag   TAG=latest-tools
+# image: cytopia/ansible:latest-tools
+make build ANSIBLE=latest FLAVOUR=tools
 
 # Build Ansible 2.6 tools
-make build ANSIBLE=2.6-tools
-make tag   TAG=2.6-tools
+# image: cytopia/ansible:2.6-tools
+make build ANSIBLE=2.6 FLAVOUR=tools
 ```
 
 ### Ansible infra
 ```bash
 # Build latest Ansible infra
-make build ANSIBLE=latest-infra
-make tag   TAG=latest-infra
+# image: cytopia/ansible:latest-infra
+make build ANSIBLE=latest FLAVOUR=infra
 
 # Build Ansible 2.6 infra
-make build ANSIBLE=2.6-infra
-make tag   TAG=2.6-infra
+# image: cytopia/ansible:2.6-infra
+make build ANSIBLE=2.6 FLAVOUR=infra
 ```
 
 ### Ansible azure
 ```bash
 # Build latest Ansible azure
-make build ANSIBLE=latest-azure
-make tag   TAG=latest-azure
+# image: cytopia/ansible:latest-azure
+make build ANSIBLE=latest FLAVOUR=azure
 
 # Build Ansible 2.6 azure
-make build ANSIBLE=2.6-azure
-make tag   TAG=2.6-azure
+# image: cytopia/ansible:2.6-azure
+make build ANSIBLE=2.6 FLAVOUR=azure
 ```
 
 ### Ansible aws
 ```bash
 # Build latest Ansible aws
-make build ANSIBLE=latest-aws
-make tag   TAG=latest-aws
+# image: cytopia/ansible:latest-aws
+make build ANSIBLE=latest FLAVOUR=aws
 
 # Build Ansible 2.6 aws
-make build ANSIBLE=2.6-aws
-make tag   TAG=2.6-aws
+# image: cytopia/ansible:2.6-aws
+make build ANSIBLE=2.6 FLAVOUR=aws
 ```
 
 ### Ansible awsk8s
 ```bash
-# Build latest Ansible k8s
-make build ANSIBLE=latest-awsk8s
-make tag   TAG=latest-awsk8ks
+# Build latest Ansible awsk8s
+# image: cytopia/ansible:latest-awsk8s
+make build ANSIBLE=latest FLAVOUR=awsk8s
 
-# Build Ansible 2.6 k8s
-make build ANSIBLE=2.6-awsk8s
-make tag   TAG=2.6-awsk8s
+# Build Ansible 2.6 awsk8s
+# image: cytopia/ansible:2.6-awsk8s
+make build ANSIBLE=2.6 FLAVOUR=awsk8s
 ```
 
 ### Ansible awskops
 ```bash
 # Build latest Ansible with Kops 1.8
-make build ANSIBLE=latest-awskops KOPS=1.8
-make tag   TAG=latest-awskops1.8
+# image: cytopia/ansible:latest-awskops1.8
+make build ANSIBLE=latest FLAVOUR=awskops KOPS=1.8
 
 # Build Ansible 2.6 with Kops 1.8
-make build ANSIBLE=2.6-awskops KOPS=1.8
-make tag   TAG=2.6-awskops1.8
+# image: cytopia/ansible:2.6-awskops1.8
+make build ANSIBLE=2.6 FLAVOUR=awskops KOPS=1.8
 ```
 
 ### Ansible awshelm
 ```bash
 # Build latest Ansible with Helm 2.14
-make build ANSIBLE=latest-awshelm HELM=2.14
-make tag   TAG=latest-awshelm2.14
+# image: cytopia/ansible:latest-awshelm1.8
+make build ANSIBLE=latest FLAVOUR=awshelm HELM=2.14
 
-# Build Ansible 2.6 with Helm 2.14
-make build ANSIBLE=2.6-awshelm HELM=2.14
-make tag   TAG=2.6-awshelm2.14
+# Build Ansible 2.6 with Kops 1.8
+# image: cytopia/ansible:2.6-awshelm1.8
+make build ANSIBLE=2.6 FLAVOUR=awshelm HELM=2.14
 ```
 
 
