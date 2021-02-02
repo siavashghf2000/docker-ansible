@@ -3,7 +3,7 @@ ARG VERSION
 # --------------------------------------------------------------------------------------------------
 # Builder Image
 # --------------------------------------------------------------------------------------------------
-FROM alpine:3.9 as builder
+FROM alpine:3.13 as builder
 
 # Required tools for building Python packages
 RUN set -eux \
@@ -17,6 +17,7 @@ RUN set -eux \
 		musl-dev \
 		openssl-dev \
 		python3 \
+                py3-pip \
 		python3-dev
 
 # Python packages (copied to final image)
@@ -52,7 +53,8 @@ RUN set -eux \
 # --------------------------------------------------------------------------------------------------
 # Final Image
 # --------------------------------------------------------------------------------------------------
-FROM cytopia/ansible:${VERSION}-tools as production
+#FROM cytopia/ansible:${VERSION}-tools as production
+FROM siavashghf2000/masimo:ansible-tools as production
 ARG VERSION
 # https://github.com/opencontainers/image-spec/blob/master/annotations.md
 #LABEL "org.opencontainers.image.created"=""
